@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Mania - Sua Loja Gamer</title>
 
-    <!-- CSS Principal Externo (Separado de forma profissional) -->
+    <!-- CSS Principal Externo -->
     <link rel="stylesheet" href="style.css" />
 
     <!-- Bootstrap 5 CSS -->
@@ -23,11 +23,10 @@
     <!-- Barra Superior com Redes Sociais -->
     <div class="top-bar">
       <div class="container d-flex justify-content-between align-items-center">
-        <small class="text-muted"
+        <small class="text-custom-muted"
           ><i class="fa-solid fa-truck-fast me-1"></i> Entrega para todo o
           Brasil</small
         >
-        <!-- Adiciona ms-auto no container dos links -->
         <div class="social-links ms-auto">
           <a
             href="https://www.facebook.com/luis.salerno.129"
@@ -112,66 +111,80 @@
     <nav class="category-nav">
       <div class="container">
         <div class="d-flex overflow-auto justify-content-between text-nowrap">
-          <a href="notebook.html" class="nav-link">Notebooks</a>
-          <a href="pcgamer.html" class="nav-link">PC Gamer</a>
-          <a href="celular.html" class="nav-link">Celulares</a>
-          <a href="tablet.html" class="nav-link">Tablets</a>
-          <a href="consoles.html" class="nav-link">Consoles</a>
-          <a href="jogos.html" class="nav-link">Jogos</a>
-          <a href="acessorios.html" class="nav-link">Acessórios</a>
+          <a href="#" class="nav-link cat-filter-btn" data-filter="notebook"
+            >Notebooks</a
+          >
+          <a href="#" class="nav-link cat-filter-btn" data-filter="pc"
+            >PC Gamer</a
+          >
+          <a href="#" class="nav-link cat-filter-btn" data-filter="celular"
+            >Celulares</a
+          >
+          <a href="#" class="nav-link cat-filter-btn" data-filter="tablet"
+            >Tablets</a
+          >
+          <a href="#" class="nav-link cat-filter-btn" data-filter="console"
+            >Consoles</a
+          >
+          <a href="#" class="nav-link cat-filter-btn" data-filter="jogo"
+            >Jogos</a
+          >
+          <a href="#" class="nav-link cat-filter-btn" data-filter="acessorio"
+            >Acessórios</a
+          >
         </div>
       </div>
     </nav>
 
     <div class="container my-4">
-      <!-- Destaques / Banners Curtos com data-filter para o JS -->
+      <!-- Destaques / Banners Curtos -->
       <section class="mb-5">
         <div class="row g-3">
           <div class="col-6 col-md-3">
             <div
-              class="promo-card promo-card-btn text-center p-3"
+              class="promo-card promo-card-btn text-center p-3 cat-filter-btn"
               data-filter="lancamentos"
               style="cursor: pointer"
             >
               <i class="fa-solid fa-rocket fa-2x text-info mb-2"></i>
-              <h6 class="mb-1">Lançamentos</h6>
-              <small class="text-muted">Confira as novidades</small>
+              <h6 class="mb-1 text-white">Lançamentos</h6>
+              <small class="text-custom-muted">Confira as novidades</small>
             </div>
           </div>
 
           <div class="col-6 col-md-3">
             <div
-              class="promo-card promo-card-btn text-center p-3"
+              class="promo-card promo-card-btn text-center p-3 cat-filter-btn"
               data-filter="hardware"
               style="cursor: pointer"
             >
               <i class="fa-solid fa-desktop fa-2x text-info mb-2"></i>
-              <h6 class="mb-1">Festival HW</h6>
-              <small class="text-muted">Descontos em peças</small>
+              <h6 class="mb-1 text-white">Festival HW</h6>
+              <small class="text-custom-muted">Descontos em peças</small>
             </div>
           </div>
 
           <div class="col-6 col-md-3">
             <div
-              class="promo-card promo-card-btn text-center p-3"
+              class="promo-card promo-card-btn text-center p-3 cat-filter-btn"
               data-filter="apple"
               style="cursor: pointer"
             >
               <i class="fa-brands fa-apple fa-2x text-info mb-2"></i>
-              <h6 class="mb-1">Upgrade Apple</h6>
-              <small class="text-muted">Linha iPhone & iPad</small>
+              <h6 class="mb-1 text-white">Upgrade Apple</h6>
+              <small class="text-custom-muted">Linha iPhone & iPad</small>
             </div>
           </div>
 
           <div class="col-6 col-md-3">
             <div
-              class="promo-card promo-card-btn text-center p-3"
+              class="promo-card promo-card-btn text-center p-3 cat-filter-btn"
               data-filter="ofertas"
               style="cursor: pointer"
             >
               <i class="fa-solid fa-tags fa-2x text-info mb-2"></i>
-              <h6 class="mb-1">Até 75% OFF</h6>
-              <small class="text-muted">Super Ofertas</small>
+              <h6 class="mb-1 text-white">Até 75% OFF</h6>
+              <small class="text-custom-muted">Super Ofertas</small>
             </div>
           </div>
         </div>
@@ -179,7 +192,7 @@
 
       <!-- Carrossel de Colecionadores -->
       <section class="mb-5">
-        <h4 class="mb-3 border-start border-4 border-info ps-2">
+        <h4 class="mb-3 border-start border-4 border-info ps-2 text-white">
           Edições de Colecionador
         </h4>
         <div
@@ -278,170 +291,16 @@
         </div>
       </section>
 
-      <!-- Galeria de Produtos com data-categoria para o JS -->
+      <!-- Galeria de Produtos (Renderizada Dinamicamente via JS) -->
       <section>
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h4 class="mb-0 border-start border-4 border-info ps-2">
+          <h4 class="mb-0 border-start border-4 border-info ps-2 text-white">
             Catálogo de Produtos
           </h4>
         </div>
 
-        <div class="row g-4">
-          <!-- Produto 1 -->
-          <div
-            class="col-6 col-md-4 col-lg-3 produto-item"
-            data-categoria="lancamentos ofertas"
-          >
-            <div class="product-card">
-              <div class="product-img-wrapper">
-                <img
-                  src="Img.resu/Need.JPG"
-                  alt="Need for Speed"
-                  onerror="
-                    this.src =
-                      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80'
-                  "
-                />
-              </div>
-              <div>
-                <h6 class="product-title">Need for Speed</h6>
-                <div class="product-price">R$ 199,90</div>
-              </div>
-              <button class="btn-buy">
-                <i class="fa-solid fa-cart-plus me-1"></i> Comprar
-              </button>
-            </div>
-          </div>
-
-          <!-- Produto 2 -->
-          <div
-            class="col-6 col-md-4 col-lg-3 produto-item"
-            data-categoria="lancamentos"
-          >
-            <div class="product-card">
-              <div class="product-img-wrapper">
-                <img
-                  src="Img.resu/resident.jpg"
-                  alt="Resident Evil"
-                  onerror="
-                    this.src =
-                      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80'
-                  "
-                />
-              </div>
-              <div>
-                <h6 class="product-title">Resident Evil</h6>
-                <div class="product-price">R$ 249,90</div>
-              </div>
-              <button class="btn-buy">
-                <i class="fa-solid fa-cart-plus me-1"></i> Comprar
-              </button>
-            </div>
-          </div>
-
-          <!-- Produto 3 -->
-          <div
-            class="col-6 col-md-4 col-lg-3 produto-item"
-            data-categoria="ofertas"
-          >
-            <div class="product-card">
-              <div class="product-img-wrapper">
-                <img
-                  src="Img.resu/farcry.jpg"
-                  alt="Far Cry"
-                  onerror="
-                    this.src =
-                      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80'
-                  "
-                />
-              </div>
-              <div>
-                <h6 class="product-title">Far Cry</h6>
-                <div class="product-price">R$ 179,90</div>
-              </div>
-              <button class="btn-buy">
-                <i class="fa-solid fa-cart-plus me-1"></i> Comprar
-              </button>
-            </div>
-          </div>
-
-          <!-- Produto 4 -->
-          <div
-            class="col-6 col-md-4 col-lg-3 produto-item"
-            data-categoria="ofertas"
-          >
-            <div class="product-card">
-              <div class="product-img-wrapper">
-                <img
-                  src="Img.resu/vingadores.jpg"
-                  alt="Vingadores"
-                  onerror="
-                    this.src =
-                      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80'
-                  "
-                />
-              </div>
-              <div>
-                <h6 class="product-title">Marvel's Vingadores</h6>
-                <div class="product-price">R$ 149,90</div>
-              </div>
-              <button class="btn-buy">
-                <i class="fa-solid fa-cart-plus me-1"></i> Comprar
-              </button>
-            </div>
-          </div>
-
-          <!-- Produto 5 -->
-          <div
-            class="col-6 col-md-4 col-lg-3 produto-item"
-            data-categoria="hardware ofertas"
-          >
-            <div class="product-card">
-              <div class="product-img-wrapper">
-                <img
-                  src="Img.resu/mouse.jpg"
-                  alt="Mouse Gamer"
-                  onerror="
-                    this.src =
-                      'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=300&q=80'
-                  "
-                />
-              </div>
-              <div>
-                <h6 class="product-title">Mouse Gamer RGB</h6>
-                <div class="product-price">R$ 129,00</div>
-              </div>
-              <button class="btn-buy">
-                <i class="fa-solid fa-cart-plus me-1"></i> Comprar
-              </button>
-            </div>
-          </div>
-
-          <!-- Produto 6 -->
-          <div
-            class="col-6 col-md-4 col-lg-3 produto-item"
-            data-categoria="hardware"
-          >
-            <div class="product-card">
-              <div class="product-img-wrapper">
-                <img
-                  src="Img.resu/cadeira.jpg"
-                  alt="Cadeira Gamer"
-                  onerror="
-                    this.src =
-                      'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=300&q=80'
-                  "
-                />
-              </div>
-              <div>
-                <h6 class="product-title">Cadeira Gamer Ergonômica</h6>
-                <div class="product-price">R$ 899,00</div>
-              </div>
-              <button class="btn-buy">
-                <i class="fa-solid fa-cart-plus me-1"></i> Comprar
-              </button>
-            </div>
-          </div>
+        <div class="row g-4" id="productGrid">
+          <!-- Os produtos são injetados automaticamente pelo script.js -->
         </div>
       </section>
     </div>
@@ -452,7 +311,7 @@
         <div class="row gy-4">
           <div class="col-md-5">
             <h5><i class="fa-solid fa-gamepad me-2"></i>Game Mania</h5>
-            <p class="text-muted">
+            <p class="text-custom-muted">
               Game Mania: uma loja criada de gamer para gamer. São mais de 10
               anos de história levando a nossa paixão por tecnologia e jogos até
               você.
@@ -462,16 +321,32 @@
           <div class="col-md-3 col-6">
             <h5>Categorias</h5>
             <ul>
-              <li><a href="notebook.html">Notebooks</a></li>
-              <li><a href="pcgamer.html">PC Gamer</a></li>
-              <li><a href="consoles.html">Consoles</a></li>
-              <li><a href="jogos.html">Jogos</a></li>
-              <li><a href="acessorios.html">Acessórios</a></li>
+              <li>
+                <a href="#" class="cat-filter-btn" data-filter="notebook"
+                  >Notebooks</a
+                >
+              </li>
+              <li>
+                <a href="#" class="cat-filter-btn" data-filter="pc">PC Gamer</a>
+              </li>
+              <li>
+                <a href="#" class="cat-filter-btn" data-filter="console"
+                  >Consoles</a
+                >
+              </li>
+              <li>
+                <a href="#" class="cat-filter-btn" data-filter="jogo">Jogos</a>
+              </li>
+              <li>
+                <a href="#" class="cat-filter-btn" data-filter="acessorio"
+                  >Acessórios</a
+                >
+              </li>
             </ul>
           </div>
           <div class="col-md-4 col-6">
             <h5>Atendimento</h5>
-            <ul class="text-muted">
+            <ul class="text-custom-muted">
               <li><i class="fa-solid fa-phone me-2"></i> (11) 4002-8922</li>
               <li>
                 <i class="fa-solid fa-envelope me-2"></i>
@@ -489,11 +364,6 @@
       </div>
     </footer>
 
-    <!-- Bootstrap 5 JS (Tem que vir PRIMEIRO) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Nosso Script (Vem DEPOIS) -->
-    <script src="script.js"></script>
     <!-- Modal de Login -->
     <div
       class="modal fade"
@@ -552,7 +422,9 @@
                     type="checkbox"
                     id="rememberMe"
                   />
-                  <label class="form-check-label text-muted" for="rememberMe"
+                  <label
+                    class="form-check-label text-custom-muted"
+                    for="rememberMe"
                     >Lembrar-me</label
                   >
                 </div>
@@ -569,17 +441,20 @@
             </form>
           </div>
           <div
-            class="modal-footer border-top border-secondary justify-content-center"
+            class="modal-footer border-top border-secondary d-flex flex-column align-items-center justify-content-center py-3 text-center"
           >
-            <span class="small text-muted"
-              >Ainda não tem conta?
-              <a href="#" class="text-info text-decoration-none fw-bold"
-                >Cadastre-se</a
-              ></span
+            <span class="small text-light mb-1">Ainda não tem conta?</span>
+            <a href="#" class="text-info text-decoration-none fw-bold small"
+              >Cadastre-se</a
             >
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Nosso Script -->
+    <script src="script.js"></script>
   </body>
 </html>

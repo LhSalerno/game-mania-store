@@ -4,7 +4,7 @@
   --bg-dark: #0f111a;
   --card-bg: #1a1d2e;
   --text-light: #f1f5f9;
-  --text-muted: #94a3b8;
+  --text-muted-custom: #e2e8f0; /* Branco suave de altíssima visibilidade */
 }
 
 body {
@@ -15,15 +15,21 @@ body {
   padding: 0;
 }
 
-/* Header & Navbar */
-.top-bar {
-  background-color: #090a10;
-  border-bottom: 1px solid #2a2d42;
-  padding: 8px 0;
+/* Classe própria para substituir o text-muted escuro do Bootstrap */
+.text-custom-muted {
+  color: var(--text-muted-custom) !important;
 }
 
+/* Força geral em textos secundários para evitar qualquer fundo escuro apagado */
+p, small, span, li {
+  color: var(--text-light);
+}
+
+/* Redes Sociais */
 .social-links a {
-  color: var(--text-muted);
+  text-decoration: none !important;
+  display: inline-block;
+  color: var(--text-muted-custom);
   margin-right: 15px;
   font-size: 1.1rem;
   transition: color 0.3s ease;
@@ -31,6 +37,13 @@ body {
 
 .social-links a:hover {
   color: var(--primary-color);
+}
+
+/* Top Bar & Header */
+.top-bar {
+  background-color: #090a10;
+  border-bottom: 1px solid #2a2d42;
+  padding: 8px 0;
 }
 
 .main-header {
@@ -71,6 +84,11 @@ body {
   box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
 
+.search-box input::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
 .search-box button {
   position: absolute;
   right: 5px;
@@ -108,9 +126,7 @@ body {
   border: 1px solid #2a2d42;
   border-radius: 12px;
   overflow: hidden;
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .promo-card:hover {
@@ -234,7 +250,7 @@ footer ul li {
 }
 
 footer ul li a {
-  color: var(--text-muted);
+  color: var(--text-muted-custom);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -247,6 +263,6 @@ footer ul li a:hover {
   border-top: 1px solid #1a1d2e;
   margin-top: 30px;
   padding-top: 20px;
-  color: var(--text-muted);
+  color: var(--text-muted-custom);
   font-size: 0.85rem;
 }

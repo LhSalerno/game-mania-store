@@ -1,19 +1,280 @@
 // ================================================
-// GAME MANIA - SCRIPT PRINCIPAL E INTERATIVIDADE
+// GAME MANIA - SCRIPT PRINCIPAL E ARQUITETURA SPA
 // ================================================
 
+// BANCO DE DADOS CENTRALIZADO DE PRODUTOS
+const PRODUCTS_DB = [
+  // JOGOS
+  {
+    id: 1,
+    title: "Need for Speed Heat",
+    price: 199.9,
+    priceFormatted: "R$ 199,90",
+    image: "Img.resu/Need.JPG",
+    category: "jogo lancamentos ofertas ps4 ps5 plataforma-pc corridas",
+    desc: "Need for Speed Heat te coloca na corrida urbana onde a lei desaparece quando o sol se põe. Dispute corridas diurnas e arrisque tudo nas noites de corrida clandestina.",
+    specs:
+      "Desenvolvedora: EA Games | Plataforma: PS4 / PS5 / PC | Idioma: Português BR",
+  },
+  {
+    id: 2,
+    title: "Resident Evil 3 Remake",
+    price: 249.9,
+    priceFormatted: "R$ 249,90",
+    image: "Img.resu/resident.jpg",
+    category: "jogo lancamentos ps5 xbox plataforma-pc terror survival",
+    desc: "Enfrente os horrores de Raccoon City neste clássico do survival horror totalmente reimaginado para a nova geração com gráficos fidedignos e áudio 3D imersivo.",
+    specs:
+      "Desenvolvedora: Capcom | Plataforma: PS5 / Xbox Series X / PC | Idioma: Português BR",
+  },
+  {
+    id: 3,
+    title: "Far Cry 6",
+    price: 179.9,
+    priceFormatted: "R$ 179,90",
+    image: "Img.resu/farcry.jpg",
+    category: "jogo ofertas ps4 ps5 xbox acao tiro",
+    desc: "Explore um mundo aberto paradisíaco, porém cruel. Lidere uma revolução para libertar uma ilha tropical das garras de um ditador impiedoso.",
+    specs:
+      "Desenvolvedora: Ubisoft | Plataforma: PS4 / PS5 / Xbox | Idioma: Português BR",
+  },
+  {
+    id: 4,
+    title: "Marvel's Vingadores",
+    price: 149.9,
+    priceFormatted: "R$ 149,90",
+    image: "Img.resu/vingadores.jpg",
+    category: "jogo ofertas ps4 ps5 plataforma-pc herois",
+    desc: "Reúna a equipe dos heróis mais poderosos da Terra, domine habilidades extraordinárias e defenda o mundo contra ameaças crescentes.",
+    specs:
+      "Desenvolvedora: Crystal Dynamics | Plataforma: PS4 / PS5 / PC | Idioma: Português BR",
+  },
+  {
+    id: 5,
+    title: "God of War Ragnarök",
+    price: 299.9,
+    priceFormatted: "R$ 299,90",
+    image: "https://m.media-amazon.com/images/I/81I3Rk9x91L._AC_SX385_.jpg",
+    category: "jogo lancamentos ps5 ps4 acao aventura kratos",
+    desc: "Embarque numa jornada épica e emocionante com Kratos e Atreus enquanto lutam entre o apego e a libertação nos Nove Reinos.",
+    specs:
+      "Desenvolvedora: Santa Monica Studio | Plataforma: PS4 / PS5 | Idioma: Português BR",
+  },
+
+  // CELULARES & TABLETS
+  {
+    id: 6,
+    title: "iPhone 15 Pro Max 256GB",
+    price: 7499.9,
+    priceFormatted: "R$ 7.499,90",
+    image:
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80",
+    category:
+      "celular celular-gamer smartphone apple iphone ofertas lancamentos",
+    desc: "Design em titânio de nível aeroespacial, chip A17 Pro revolucionário, botão de Ação personalizável e o sistema de câmera mais poderoso em um iPhone.",
+    specs:
+      'Tela: Super Retina XDR 6.7" 120Hz | Armazenamento: 256GB | Chip: A17 Pro',
+  },
+  {
+    id: 7,
+    title: "Samsung Galaxy S24 Ultra 512GB",
+    price: 6899.0,
+    priceFormatted: "R$ 6.899,00",
+    image:
+      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=300&q=80",
+    category: "celular celular-gamer smartphone android samsung ofertas",
+    desc: "O ápice da tecnologia móvel com inteligência artificial Galaxy AI, S Pen embutida, câmera de 200MP e estrutura resistente em titânio.",
+    specs:
+      'Tela: Dynamic AMOLED 2X 6.8" | RAM: 12GB | Câmera: 200MP | Bateria: 5000mAh',
+  },
+
+  // NOTEBOOKS & PC GAMER
+  {
+    id: 8,
+    title: "Notebook Gamer Asus ROG Strix i7",
+    price: 6499.9,
+    priceFormatted: "R$ 6.499,90",
+    image:
+      "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=300&q=80",
+    category: "notebook notebook-gamer pc pc-gamer hardware lancamentos",
+    desc: "Notebook Gamer de altíssima performance com placa gráfica dedicada Nvidia RTX, teclado retroiluminado RGB e refrigeração líquida avançada.",
+    specs:
+      "Processador: Intel Core i7 13ª Geração | Placa de Vídeo: RTX 4060 8GB | RAM: 16GB DDR5 | SSD: 1TB NVMe",
+  },
+  {
+    id: 9,
+    title: "PC Gamer Arena Monster Ryzen 7",
+    price: 5299.0,
+    priceFormatted: "R$ 5.299,00",
+    image:
+      "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=300&q=80",
+    category: "pc pc-gamer hardware ofertas gabinete",
+    desc: "Computador Gamer montado e testado, pronto para rodar todos os jogos competitivos e lançamentos no ultra em alta taxa de quadros.",
+    specs:
+      "Processador: AMD Ryzen 7 5700X | Placa de Vídeo: RTX 3060 12GB | RAM: 32GB RGB | SSD: 1TB",
+  },
+
+  // CONSOLES
+  {
+    id: 10,
+    title: "Console PlayStation 5 Edição Digital",
+    price: 3799.0,
+    priceFormatted: "R$ 3.799,00",
+    image:
+      "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=300&q=80",
+    category: "console consoles sony ps5 lancamentos ofertas",
+    desc: "Experimente o carregamento extremamente rápido com o SSD de altíssima velocidade e imersão mais profunda com suporte a feedback tátil no controle DualSense.",
+    specs:
+      "Mídia: Digital | Armazenamento: SSD 825GB | Resolução: Até 4K 120Hz | Incluso: 1 Controle DualSense",
+  },
+  {
+    id: 11,
+    title: "Console Xbox Series X 1TB",
+    price: 4299.9,
+    priceFormatted: "R$ 4.299,90",
+    image:
+      "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=300&q=80",
+    category: "console consoles microsoft xbox ofertas",
+    desc: "O Xbox mais rápido e poderoso de todos os tempos. Jogue milhares de títulos de quatro gerações de consoles com desempenho inédito.",
+    specs:
+      "Mídia: Física / Digital | Armazenamento: SSD NVMe 1TB Customizado | Desempenho: 12 TFLOPS",
+  },
+
+  // ACESSÓRIOS & HARDWARE
+  {
+    id: 12,
+    title: "Mouse Gamer RGB Chroma 12000 DPI",
+    price: 129.0,
+    priceFormatted: "R$ 129,00",
+    image: "Img.resu/mouse.jpg",
+    category: "acessorio acessorios hardware ofertas perifericos",
+    desc: "Mouse Gamer de alta precisão com até 12.000 DPI ajustáveis, iluminação RGB Chroma personalizável e 6 botões programáveis para alta performance.",
+    specs: "Sensor: Óptico PixArt | Conexão: USB Trançado 1.8m | Peso: 85g",
+  },
+  {
+    id: 13,
+    title: "Cadeira Gamer Ergonômica Pro",
+    price: 899.0,
+    priceFormatted: "R$ 899,00",
+    image: "Img.resu/cadeira.jpg",
+    category: "acessorio acessorios hardware cadeira",
+    desc: "Cadeira Gamer com design ergonômico, almofadas para lombar e pescoço, ajuste de altura a gás e reclinação até 180° para longas sessões de gameplay.",
+    specs:
+      "Material: Couro Sintético PU | Suporte: Até 130kg | Base: Estrela de Aço",
+  },
+  {
+    id: 14,
+    title: "Headset Gamer 7.1 Surround RGB",
+    price: 289.9,
+    priceFormatted: "R$ 289,90",
+    image:
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=300&q=80",
+    category: "acessorio acessorios fone headset perifericos ofertas",
+    desc: "Headset com áudio espacial 7.1 surround, microfone com cancelamento de ruído ativo e earpads em espuma de memória para máximo conforto.",
+    specs:
+      "Conexão: USB / P3 | Drivers: 50mm Neodímio | Iluminação: RGB Lateral",
+  },
+];
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Chave do localStorage para salvar o carrinho
   const CART_STORAGE_KEY = "gamemania_cart";
+  const CURRENT_PRODUCT_KEY = "gamemania_selected_product";
+
   let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
 
-  // Elementos Globais da Interface
   const cartIconBtn = document.querySelector('a[title="Carrinho"]');
   const searchInput = document.querySelector(".search-box input");
   const searchForm = document.querySelector(".search-box");
+  const gridContainer = document.getElementById("productGrid");
+
+  // Rola suavemente até o catálogo de produtos
+  function scrollToCatalog() {
+    if (gridContainer) {
+      gridContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 
   // ------------------------------------------------
-  // 1. CRIAR E RENDERIZAR A MODAL DO CARRINHO
+  // 1. RENDERIZAR PRODUTOS NA HOME
+  // ------------------------------------------------
+  function renderProducts(productsToRender) {
+    if (!gridContainer) return;
+
+    if (productsToRender.length === 0) {
+      gridContainer.innerHTML = `
+        <div class="col-12 text-center py-5">
+          <i class="fa-solid fa-box-open fa-3x mb-3 text-info"></i>
+          <h5 class="text-white">Nenhum produto encontrado</h5>
+          <p class="small text-custom-muted">Tente pesquisar por outro termo como "iPhone", "Gamer", "Mouse" ou "Console".</p>
+        </div>
+      `;
+      return;
+    }
+
+    let html = "";
+    productsToRender.forEach((product) => {
+      html += `
+        <div class="col-6 col-md-4 col-lg-3 produto-item">
+          <div class="product-card" data-id="${product.id}">
+            <div class="product-img-wrapper item-click" style="cursor: pointer;" data-id="${product.id}">
+              <img src="${product.image}" alt="${product.title}" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80'">
+            </div>
+            <div>
+              <h6 class="product-title item-click" style="cursor: pointer;" data-id="${product.id}">${product.title}</h6>
+              <div class="product-price">${product.priceFormatted}</div>
+            </div>
+            <button class="btn-buy" data-id="${product.id}">
+              <i class="fa-solid fa-cart-plus me-1"></i> Comprar
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+    gridContainer.innerHTML = html;
+    setupDynamicEvents();
+  }
+
+  // ------------------------------------------------
+  // 2. EVENTOS DINÂMICOS (DETALHES E COMPRA)
+  // ------------------------------------------------
+  function setupDynamicEvents() {
+    document.querySelectorAll(".item-click").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const productId = parseInt(e.currentTarget.getAttribute("data-id"));
+        const product = PRODUCTS_DB.find((p) => p.id === productId);
+
+        if (product) {
+          localStorage.setItem(CURRENT_PRODUCT_KEY, JSON.stringify(product));
+          window.location.href = "produto.html";
+        }
+      });
+    });
+
+    document.querySelectorAll(".btn-buy").forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const productId = parseInt(e.currentTarget.getAttribute("data-id"));
+        const product = PRODUCTS_DB.find((p) => p.id === productId);
+
+        if (product) {
+          addItemToCart(product.title, product.price, product.image);
+
+          const originalText = button.innerHTML;
+          button.innerHTML =
+            '<i class="fa-solid fa-check me-1"></i> Adicionado!';
+          button.classList.replace("btn-buy", "btn-success");
+
+          setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.replace("btn-success", "btn-buy");
+          }, 1200);
+        }
+      });
+    });
+  }
+
+  // ------------------------------------------------
+  // 3. CARRINHO DE COMPRAS E MODAL
   // ------------------------------------------------
   function createCartModal() {
     if (document.getElementById("cartModal")) return;
@@ -26,24 +287,20 @@ document.addEventListener("DOMContentLoaded", () => {
               <h5 class="modal-title" id="cartModalLabel"><i class="fa-solid fa-cart-shopping text-info me-2"></i>Seu Carrinho de Compras</h5>
               <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <div class="modal-body" id="cartModalBody">
-              <!-- Conteúdo renderizado via JS -->
-            </div>
+            <div class="modal-body" id="cartModalBody"></div>
             <div class="modal-footer border-top border-secondary d-flex justify-content-between">
               <h5 class="mb-0">Total: <span id="cartTotalValue" class="text-info">R$ 0,00</span></h5>
               <div>
                 <button type="button" class="btn btn-outline-light me-2" data-bs-dismiss="modal">Continuar Comprando</button>
-                <button type="button" class="btn btn-info fw-bold" id="checkoutBtn"><i class="fa-solid fa-credit-card me-1"></i> Finalizar Compra</button>
+                <button type="button" class="btn btn-info fw-bold text-dark" id="checkoutBtn"><i class="fa-solid fa-credit-card me-1"></i> Finalizar Compra</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     `;
-
     document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-    // Evento do botão "Finalizar Compra"
     document.getElementById("checkoutBtn")?.addEventListener("click", () => {
       if (cart.length === 0) {
         alert("Seu carrinho está vazio!");
@@ -60,20 +317,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ------------------------------------------------
-  // 2. RENDERIZAR OS ITENS DENTRO DA MODAL
-  // ------------------------------------------------
   function renderCartItems() {
     const modalBody = document.getElementById("cartModalBody");
     const totalElement = document.getElementById("cartTotalValue");
-
     if (!modalBody) return;
 
     if (cart.length === 0) {
       modalBody.innerHTML = `
         <div class="text-center py-4 text-muted">
           <i class="fa-solid fa-basket-shopping fa-3x mb-3"></i>
-          <p class="fs-5 mb-0">Seu carrinho está vazio no momento.</p>
+          <p class="fs-5 mb-0 text-light">Seu carrinho está vazio no momento.</p>
         </div>
       `;
       if (totalElement) totalElement.textContent = "R$ 0,00";
@@ -92,13 +345,13 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="d-flex align-items-center" style="max-width: 50%;">
             <img src="${item.image}" alt="${item.title}" style="width: 50px; height: 50px; object-fit: contain;" class="me-3 rounded bg-dark p-1">
             <div>
-              <h6 class="mb-0 text-truncate">${item.title}</h6>
-              <small class="text-muted">R$ ${item.price.toFixed(2).replace(".", ",")} un.</small>
+              <h6 class="mb-0 text-truncate text-white">${item.title}</h6>
+              <small class="text-light">R$ ${item.price.toFixed(2).replace(".", ",")} un.</small>
             </div>
           </div>
           <div class="d-flex align-items-center">
             <button class="btn btn-sm btn-outline-secondary text-white decrease-qty me-2" data-index="${index}">-</button>
-            <span class="fw-bold px-2">${item.quantity}</span>
+            <span class="fw-bold px-2 text-white">${item.quantity}</span>
             <button class="btn btn-sm btn-outline-secondary text-white increase-qty ms-2 me-3" data-index="${index}">+</button>
             <span class="fw-bold text-info me-3" style="min-width: 90px; text-align: right;">R$ ${itemTotal.toFixed(2).replace(".", ",")}</span>
             <button class="btn btn-sm btn-outline-danger remove-item" data-index="${index}" title="Remover"><i class="fa-solid fa-trash"></i></button>
@@ -109,12 +362,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     itemsHTML += "</div>";
     modalBody.innerHTML = itemsHTML;
-
-    if (totalElement) {
+    if (totalElement)
       totalElement.textContent = `R$ ${grandTotal.toFixed(2).replace(".", ",")}`;
-    }
 
-    // Ações dos botões (+, - e Lixeira)
     modalBody.querySelectorAll(".increase-qty").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const idx = e.target.closest("button").dataset.index;
@@ -147,12 +397,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ------------------------------------------------
-  // 3. ATUALIZAR NÚMERO/BADGE DO ÍCONE DO CARRINHO
-  // ------------------------------------------------
   function updateCartCounter() {
     if (!cartIconBtn) return;
-
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
     let badge = cartIconBtn.querySelector(".cart-badge");
@@ -173,152 +419,123 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartCounter();
   }
 
-  // ------------------------------------------------
-  // 4. CONFIGURAR OS BOTÕES "COMPRAR" (COM PROTEÇÃO)
-  // ------------------------------------------------
-  function setupBuyButtons() {
-    const buyButtons = document.querySelectorAll(".btn-buy");
-
-    buyButtons.forEach((button) => {
-      button.addEventListener("click", (e) => {
-        const productCard = e.target.closest(".product-card");
-        if (!productCard) return;
-
-        const title =
-          productCard.querySelector(".product-title")?.textContent.trim() ||
-          "Produto";
-        const priceText =
-          productCard.querySelector(".product-price")?.textContent.trim() ||
-          "R$ 0,00";
-        const imgSrc =
-          productCard.querySelector("img")?.getAttribute("src") || "";
-
-        // Converte o texto do preço para um número seguro
-        let rawPrice = priceText
-          .replace("R$", "")
-          .replace(/\./g, "")
-          .replace(",", ".")
-          .trim();
-        let price = parseFloat(rawPrice);
-
-        // Se o preço não for um número válido, usa 0 como valor padrão
-        if (isNaN(price)) {
-          price = 0;
-        }
-
-        const existingItem = cart.find((item) => item.title === title);
-
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          cart.push({
-            title: title,
-            price: price,
-            image: imgSrc,
-            quantity: 1,
-          });
-        }
-
-        saveCart();
-
-        // Animação/Feedback visual no botão
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class="fa-solid fa-check me-1"></i> Adicionado!';
-        button.classList.replace("btn-buy", "btn-success");
-
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.classList.replace("btn-success", "btn-buy");
-        }, 1200);
-      });
-    });
+  function addItemToCart(title, price, image) {
+    const existingItem = cart.find((item) => item.title === title);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ title, price, image, quantity: 1 });
+    }
+    saveCart();
   }
 
   // ------------------------------------------------
-  // 5. CONFIGURAR FILTRO DOS CARDS DE DESTAQUE (HOME)
+  // 4. PÁGINA DE DETALHES (`produto.html`)
   // ------------------------------------------------
-  function setupPromoFilters() {
-    const promoCards = document.querySelectorAll(".promo-card-btn");
-    const produtos = document.querySelectorAll(".produto-item");
+  function renderProductDetailPage() {
+    const detailTitle = document.getElementById("detailTitle");
+    if (!detailTitle) return;
 
-    if (promoCards.length === 0 || produtos.length === 0) return;
+    const savedProduct = JSON.parse(localStorage.getItem(CURRENT_PRODUCT_KEY));
 
-    promoCards.forEach((card) => {
-      card.addEventListener("click", () => {
-        const filtro = card.getAttribute("data-filter");
+    if (!savedProduct) {
+      window.location.href = "index.html";
+      return;
+    }
 
-        // Alterna o destaque visual dos cards de filtro
-        const isActive = card.classList.contains("active-filter");
+    document.getElementById("detailTitle").textContent = savedProduct.title;
+    document.getElementById("detailPrice").textContent =
+      savedProduct.priceFormatted ||
+      `R$ ${savedProduct.price.toFixed(2).replace(".", ",")}`;
+    document.getElementById("detailImg").src = savedProduct.image;
+    document.getElementById("detailImg").alt = savedProduct.title;
+    document.getElementById("detailDesc").textContent = savedProduct.desc;
+    document.getElementById("detailSpecs").textContent = savedProduct.specs;
 
-        promoCards.forEach((c) => {
-          c.classList.remove("active-filter");
-          c.style.borderColor = "#2a2d42";
-        });
-
-        if (isActive) {
-          // Se já estava ativo, des clica e mostra TUDO de novo
-          produtos.forEach((produto) => (produto.style.display = "block"));
-          return;
-        }
-
-        card.classList.add("active-filter");
-        card.style.borderColor = "#00f0ff"; // Cor de destaque (ciano)
-
-        // Filtra os produtos na tela
-        produtos.forEach((produto) => {
-          const categorias = produto.getAttribute("data-categoria") || "";
-
-          if (categorias.includes(filtro)) {
-            produto.style.display = "block";
-          } else {
-            produto.style.display = "none";
-          }
-        });
-      });
-    });
-  }
-
-  // ------------------------------------------------
-  // 6. BUSCA EM TEMPO REAL
-  // ------------------------------------------------
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      const productCards = document.querySelectorAll(".product-card");
-
-      productCards.forEach((card) => {
-        const title =
-          card.querySelector(".product-title")?.textContent.toLowerCase() || "";
-        const colContainer = card.closest(
-          ".col-6, .col-md-4, .col-lg-3, .produto-item",
+    const buyBtn = document.getElementById("detailBuyBtn");
+    if (buyBtn) {
+      buyBtn.addEventListener("click", () => {
+        addItemToCart(
+          savedProduct.title,
+          savedProduct.price,
+          savedProduct.image,
         );
 
-        if (title.includes(query)) {
-          if (colContainer) colContainer.style.display = "block";
-        } else {
-          if (colContainer) colContainer.style.display = "none";
-        }
-      });
-    });
+        const origHTML = buyBtn.innerHTML;
+        buyBtn.innerHTML =
+          '<i class="fa-solid fa-check me-2"></i> ADICIONADO COM SUCESSO!';
+        buyBtn.classList.replace("btn-info", "btn-success");
 
-    if (searchForm) {
-      searchForm.addEventListener("submit", (e) => e.preventDefault());
+        setTimeout(() => {
+          buyBtn.innerHTML = origHTML;
+          buyBtn.classList.replace("btn-success", "btn-info");
+        }, 1500);
+      });
     }
   }
 
   // ------------------------------------------------
-  // 7. INICIALIZAÇÃO E ABERTURA DA MODAL DO CARRINHO
+  // 5. BUSCA INTELIGENTE E AÇÃO DA LUPA / ENTER
+  // ------------------------------------------------
+  if (searchInput) {
+    function executeSearch() {
+      const termo = searchInput.value.toLowerCase().trim();
+
+      const filtered = PRODUCTS_DB.filter((p) => {
+        const titleMatch = p.title.toLowerCase().includes(termo);
+        const categoryMatch = p.category.toLowerCase().includes(termo);
+        const descMatch = p.desc.toLowerCase().includes(termo);
+        return titleMatch || categoryMatch || descMatch;
+      });
+
+      renderProducts(filtered);
+      scrollToCatalog();
+    }
+
+    // Busca em tempo real ao digitar
+    searchInput.addEventListener("input", () => {
+      executeSearch();
+    });
+
+    // Ao submeter o formulário (clicar na lupa ou pressionar Enter)
+    if (searchForm) {
+      searchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        executeSearch();
+      });
+    }
+  }
+
+  // ------------------------------------------------
+  // 6. FILTRO POR CATEGORIAS (MENU DO TOPO E BANNERS)
+  // ------------------------------------------------
+  const categoryLinks = document.querySelectorAll(".cat-filter-btn");
+  categoryLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const filtro = link.getAttribute("data-filter").toLowerCase().trim();
+
+      const filtered = PRODUCTS_DB.filter((p) =>
+        p.category.toLowerCase().includes(filtro),
+      );
+
+      renderProducts(filtered);
+      scrollToCatalog();
+    });
+  });
+
+  // ------------------------------------------------
+  // INICIALIZAÇÃO GERAL
   // ------------------------------------------------
   createCartModal();
   updateCartCounter();
-  setupBuyButtons();
-  setupPromoFilters();
+  renderProducts(PRODUCTS_DB);
+  renderProductDetailPage();
 
   if (cartIconBtn) {
     cartIconBtn.addEventListener("click", (e) => {
       e.preventDefault();
       renderCartItems();
-
       const modalElement = document.getElementById("cartModal");
       if (modalElement && typeof bootstrap !== "undefined") {
         const cartModal = bootstrap.Modal.getOrCreateInstance(modalElement);
