@@ -340,20 +340,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemTotal = item.price * item.quantity;
       grandTotal += itemTotal;
 
+      // Formatação padrão PT-BR para moeda (R$ X.XXX,XX)
+      const unitPriceFormatted = item.price.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+      const itemTotalFormatted = itemTotal.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+
       itemsHTML += `
         <div class="list-group-item bg-transparent text-white d-flex align-items-center justify-content-between border-secondary py-3">
           <div class="d-flex align-items-center" style="max-width: 50%;">
             <img src="${item.image}" alt="${item.title}" style="width: 50px; height: 50px; object-fit: contain;" class="me-3 rounded bg-dark p-1">
             <div>
               <h6 class="mb-0 text-truncate text-white">${item.title}</h6>
-              <small class="text-light">R$ ${item.price.toFixed(2).replace(".", ",")} un.</small>
+              <small class="text-light">${unitPriceFormatted} un.</small>
             </div>
           </div>
           <div class="d-flex align-items-center">
             <button class="btn btn-sm btn-outline-secondary text-white decrease-qty me-2" data-index="${index}">-</button>
             <span class="fw-bold px-2 text-white">${item.quantity}</span>
             <button class="btn btn-sm btn-outline-secondary text-white increase-qty ms-2 me-3" data-index="${index}">+</button>
-            <span class="fw-bold text-info me-3" style="min-width: 90px; text-align: right;">R$ ${itemTotal.toFixed(2).replace(".", ",")}</span>
+            <span class="fw-bold text-info me-3" style="min-width: 110px; text-align: right;">${itemTotalFormatted}</span>
             <button class="btn btn-sm btn-outline-danger remove-item" data-index="${index}" title="Remover"><i class="fa-solid fa-trash"></i></button>
           </div>
         </div>
@@ -362,8 +372,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     itemsHTML += "</div>";
     modalBody.innerHTML = itemsHTML;
-    if (totalElement)
-      totalElement.textContent = `R$ ${grandTotal.toFixed(2).replace(".", ",")}`;
+
+    if (totalElement) {
+      totalElement.textContent = grandTotal.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+    }
 
     modalBody.querySelectorAll(".increase-qty").forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -475,10 +490,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ------------------------------------------------
+  // ------------------------------------------------
   // 5. BUSCA INTELIGENTE E AÇÃO DA LUPA / ENTER
   // ------------------------------------------------
   if (searchInput) {
-    function executeSearch() {
+    // Função que apenas filtra os produtos na tela (sem rolar)
+    function executeSearchOnly() {
       const termo = searchInput.value.toLowerCase().trim();
 
       const filtered = PRODUCTS_DB.filter((p) => {
@@ -489,19 +506,19 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       renderProducts(filtered);
-      scrollToCatalog();
     }
 
-    // Busca em tempo real ao digitar
+    // Ao digitar: Filtra instantaneamente SEM rolar a página
     searchInput.addEventListener("input", () => {
-      executeSearch();
+      executeSearchOnly();
     });
 
-    // Ao submeter o formulário (clicar na lupa ou pressionar Enter)
+    // Ao submeter (clicar na Lupa ou apertar Enter): Filtra E rola suavemente até os produtos
     if (searchForm) {
       searchForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        executeSearch();
+        executeSearchOnly();
+        scrollToCatalog();
       });
     }
   }
