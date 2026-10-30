@@ -2,9 +2,9 @@
 // GAME MANIA - SCRIPT PRINCIPAL E ARQUITETURA SPA
 // ================================================
 
-// BANCO DE DADOS CENTRALIZADO DE PRODUTOS
+// BANCO DE DADOS CENTRALIZADO DE PRODUTOS (EXPANDIDO - ETAPA 1)
 const PRODUCTS_DB = [
-  // JOGOS
+  // --- JOGOS & LANÇAMENTOS ---
   {
     id: 1,
     title: "Need for Speed Heat",
@@ -60,15 +60,46 @@ const PRODUCTS_DB = [
     specs:
       "Desenvolvedora: Santa Monica Studio | Plataforma: PS4 / PS5 | Idioma: Português BR",
   },
+  {
+    id: 101,
+    title: "DOOM Eternal Deluxe Edition",
+    price: 199.9,
+    priceFormatted: "R$ 199,90",
+    image: "Img.resu/doon.jpg",
+    category: "jogo lancamentos ps4 ps5 xbox pc acao tiro",
+    desc: "Os exércitos do inferno invadiram a Terra. Torne-se o Slayer em uma campanha épica para conquistar demônios entre dimensões e impedir a destruição final da humanidade.",
+    specs:
+      "Desenvolvedora: id Software | Plataforma: PC / Consoles | Idioma: PT-BR",
+  },
+  {
+    id: 102,
+    title: "The Last of Us Part I",
+    price: 249.9,
+    priceFormatted: "R$ 249,90",
+    image: "Img.resu/thelast.jpg",
+    category: "jogo lancamentos ps5 pc aventura survival",
+    desc: "Experimente a narrativa emocionante e os personagens inesquecíveis de The Last of Us, vencedor de mais de 200 prêmios de Jogo do Ano.",
+    specs: "Desenvolvedora: Naughty Dog | Plataforma: PS5 / PC | Idioma: PT-BR",
+  },
+  {
+    id: 103,
+    title: "Matrix Awakens Experience Game",
+    price: 99.9,
+    priceFormatted: "R$ 99,90",
+    image: "Img.resu/matrix.jpg",
+    category: "jogo lancamentos ps5 xbox pc acao",
+    desc: "Mergulhe em uma realidade simulada impressionante com gráficos de última geração que desafiam a linha entre o cinema e os jogos interativos.",
+    specs:
+      "Desenvolvedora: Epic Games | Plataforma: Next-Gen | Idioma: Legendado",
+  },
 
-  // CELULARES & TABLETS
+  // --- SMARTPHONES & TABLETS ---
   {
     id: 6,
     title: "iPhone 15 Pro Max 256GB",
     price: 7499.9,
     priceFormatted: "R$ 7.499,90",
-    image:
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80",
+    image: "Img.resu/iphone.jpg",
     category:
       "celular celular-gamer smartphone apple iphone ofertas lancamentos",
     desc: "Design em titânio de nível aeroespacial, chip A17 Pro revolucionário, botão de Ação personalizável e o sistema de câmera mais poderoso em um iPhone.",
@@ -80,22 +111,50 @@ const PRODUCTS_DB = [
     title: "Samsung Galaxy S24 Ultra 512GB",
     price: 6899.0,
     priceFormatted: "R$ 6.899,00",
-    image:
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=300&q=80",
+    image: "Img.resu/S21.JPG",
     category: "celular celular-gamer smartphone android samsung ofertas",
     desc: "O ápice da tecnologia móvel com inteligência artificial Galaxy AI, S Pen embutida, câmera de 200MP e estrutura resistente em titânio.",
     specs:
       'Tela: Dynamic AMOLED 2X 6.8" | RAM: 12GB | Câmera: 200MP | Bateria: 5000mAh',
   },
+  {
+    id: 104,
+    title: "Smartphone Gamer RedMagic 9 Pro",
+    price: 4899.0,
+    priceFormatted: "R$ 4.899,00",
+    image: "Img.resu/cel1.jpg",
+    category: "celular celular-gamer smartphone android ofertas",
+    desc: "Desempenho absoluto para jogos mobile com resfriamento ativo a ventoinha, gatilhos magnéticos e tela totalmente limpa sem entalhes.",
+    specs: "Processador: Snapdragon 8 Gen 3 | RAM: 16GB | Tela: AMOLED 120Hz",
+  },
+  {
+    id: 105,
+    title: "Smartphone Samsung Galaxy S23 FE",
+    price: 3199.0,
+    priceFormatted: "R$ 3.199,00",
+    image: "Img.resu/cel2.jpg",
+    category: "celular smartphone android samsung ofertas",
+    desc: "Recursos premium acessíveis: câmera profissional noturna, processador de alto desempenho e design icônico resistente à água.",
+    specs: "Câmera Tripla 50MP | Tela Dynamic AMOLED 2X | 256GB",
+  },
+  {
+    id: 106,
+    title: "Smartphone Motorola Edge 50 Pro",
+    price: 3499.0,
+    priceFormatted: "R$ 3.499,00",
+    image: "Img.resu/cel3.jpg",
+    category: "celular smartphone android ofertas",
+    desc: "Acabamento em material vegano, carregamento ultrarrápido de 125W e tela curva pOLED com cores validadas pela Pantone.",
+    specs: "Carregador 125W na caixa | 512GB de Armazenamento | 12GB RAM",
+  },
 
-  // NOTEBOOKS & PC GAMER
+  // --- NOTEBOOKS & HARDWARE / PC GAMER ---
   {
     id: 8,
     title: "Notebook Gamer Asus ROG Strix i7",
     price: 6499.9,
     priceFormatted: "R$ 6.499,90",
-    image:
-      "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=300&q=80",
+    image: "Img.resu/notebook.jpg",
     category: "notebook notebook-gamer pc pc-gamer hardware lancamentos",
     desc: "Notebook Gamer de altíssima performance com placa gráfica dedicada Nvidia RTX, teclado retroiluminado RGB e refrigeração líquida avançada.",
     specs:
@@ -106,22 +165,50 @@ const PRODUCTS_DB = [
     title: "PC Gamer Arena Monster Ryzen 7",
     price: 5299.0,
     priceFormatted: "R$ 5.299,00",
-    image:
-      "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=300&q=80",
+    image: "Img.resu/pc.jpg",
     category: "pc pc-gamer hardware ofertas gabinete",
     desc: "Computador Gamer montado e testado, pronto para rodar todos os jogos competitivos e lançamentos no ultra em alta taxa de quadros.",
     specs:
       "Processador: AMD Ryzen 7 5700X | Placa de Vídeo: RTX 3060 12GB | RAM: 32GB RGB | SSD: 1TB",
   },
+  {
+    id: 107,
+    title: "Kit Upgrade Gamer Completo RGB",
+    price: 2199.0,
+    priceFormatted: "R$ 2.199,00",
+    image: "Img.resu/kitgamer.jpg",
+    category: "hardware pc pc-gamer acessorio ofertas",
+    desc: "Kit contendo placa-mãe de alta performance, processador otimizado para multitarefas e memória RAM com dissipador RGB.",
+    specs: "Ideal para montagem de gabinetes de alta performance.",
+  },
+  {
+    id: 108,
+    title: "Notebook Ultrabook Lenovo Slim 5",
+    price: 4199.0,
+    priceFormatted: "R$ 4.199,00",
+    image: "Img.resu/not1.jpg",
+    category: "notebook hardware ofertas",
+    desc: "Leve, potente e elegante. Desenvolvido para produtividade exigente, estudos avançados e mobilidade diária.",
+    specs: "Tela 15.6 polegadas Full HD IPS | Ryzen 7 | 16GB RAM",
+  },
+  {
+    id: 109,
+    title: "Roteador Wi-Fi 6 Gamer Gigabit",
+    price: 549.0,
+    priceFormatted: "R$ 549,00",
+    image: "Img.resu/roteador.jpg",
+    category: "acessorio hardware ofertas",
+    desc: "Baixíssima latência para jogos online, priorização de pacotes de rede e cobertura de sinal estendida para toda a casa.",
+    specs: "Tecnologia Wi-Fi 6 (802.11ax) | Portas Gigabit",
+  },
 
-  // CONSOLES
+  // --- CONSOLES ---
   {
     id: 10,
     title: "Console PlayStation 5 Edição Digital",
     price: 3799.0,
     priceFormatted: "R$ 3.799,00",
-    image:
-      "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=300&q=80",
+    image: "Img.resu/ps5.jpg",
     category: "console consoles sony ps5 lancamentos ofertas",
     desc: "Experimente o carregamento extremamente rápido com o SSD de altíssima velocidade e imersão mais profunda com suporte a feedback tátil no controle DualSense.",
     specs:
@@ -132,15 +219,34 @@ const PRODUCTS_DB = [
     title: "Console Xbox Series X 1TB",
     price: 4299.9,
     priceFormatted: "R$ 4.299,90",
-    image:
-      "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=300&q=80",
+    image: "Img.resu/xbox.jpg",
     category: "console consoles microsoft xbox ofertas",
     desc: "O Xbox mais rápido e poderoso de todos os tempos. Jogue milhares de títulos de quatro gerações de consoles com desempenho inédito.",
     specs:
       "Mídia: Física / Digital | Armazenamento: SSD NVMe 1TB Customizado | Desempenho: 12 TFLOPS",
   },
+  {
+    id: 110,
+    title: "Console Nintendo Switch OLED",
+    price: 2499.0,
+    priceFormatted: "R$ 2.499,00",
+    image: "Img.resu/cons1.jpg",
+    category: "console consoles nintendo ofertas",
+    desc: "Desfrute de jogos onde quer que esteja com a tela OLED de 7 polegadas com cores vivas e suporte ajustável amplo.",
+    specs: 'Tela OLED 7" | 64GB Armazenamento interno expansível',
+  },
+  {
+    id: 111,
+    title: "Console PlayStation 4 Slim 1TB",
+    price: 2199.0,
+    priceFormatted: "R$ 2.199,00",
+    image: "Img.resu/cons2.jpg",
+    category: "console consoles sony ps4 ofertas",
+    desc: "Acesso à maior biblioteca de jogos exclusivos da geração passada com gráficos incríveis e desempenho estável.",
+    specs: "1TB HDD | 1 Controle DualShock 4 incluso",
+  },
 
-  // ACESSÓRIOS & HARDWARE
+  // --- ACESSÓRIOS & PERIFÉRICOS ---
   {
     id: 12,
     title: "Mouse Gamer RGB Chroma 12000 DPI",
@@ -167,12 +273,53 @@ const PRODUCTS_DB = [
     title: "Headset Gamer 7.1 Surround RGB",
     price: 289.9,
     priceFormatted: "R$ 289,90",
-    image:
-      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=300&q=80",
+    image: "Img.resu/ac1.jpg",
     category: "acessorio acessorios fone headset perifericos ofertas",
     desc: "Headset com áudio espacial 7.1 surround, microfone com cancelamento de ruído ativo e earpads em espuma de memória para máximo conforto.",
     specs:
       "Conexão: USB / P3 | Drivers: 50mm Neodímio | Iluminação: RGB Lateral",
+  },
+  {
+    id: 112,
+    title: "Teclado Mecânico Gamer Switch Red RGB",
+    price: 329.0,
+    priceFormatted: "R$ 329,00",
+    image: "Img.resu/ac2.jpg",
+    category: "acessorio acessorios perifericos hardware",
+    desc: "Teclado mecânico compacto formato TKL com switches mecânicos lineares silenciosos e iluminação LED RGB por tecla.",
+    specs: "Anti-ghosting completo | Conexão USB Type-C removível",
+  },
+
+  // --- EDIÇÕES DE COLECIONADOR (Carrossel / Destaques) ---
+  {
+    id: 15,
+    title: "Box Colecionador Batman Arkham",
+    price: 890.0,
+    priceFormatted: "R$ 890,00",
+    image: "Img.resu/boxbatman.jpg",
+    category: "colecionador box jogo lancamentos ofertas",
+    desc: "Edição limitada contendo estátua exclusiva de alta qualidade, livro de arte oficial capa dura e itens comemorativos da trilogia.",
+    specs: "Edição Limitada e Numerada | Itens exclusivos de colecionador",
+  },
+  {
+    id: 16,
+    title: "Box Colecionador Assassin's Creed Valhalla",
+    price: 700.0,
+    priceFormatted: "R$ 700,00",
+    image: "Img.resu/BoxAss.JPG",
+    category: "colecionador box jogo lancamentos ofertas",
+    desc: "Incluso steelbook oficial, trilha sonora em CD, estátua detalhada do personagem principal e litografias exclusivas.",
+    specs: "Conteúdo físico de colecionador premium",
+  },
+  {
+    id: 17,
+    title: "Box Colecionador The Last of Us Part II",
+    price: 500.0,
+    priceFormatted: "R$ 500,00",
+    image: "Img.resu/boxthelast.jpg",
+    category: "colecionador box jogo lancamentos ofertas",
+    desc: "Garanta já a edição definitiva para fãs da franquia com réplica do bracelete, mini artbook e caixa temática de colecionador.",
+    specs: "Item oficial licenciado para fãs e colecionadores",
   },
 ];
 
@@ -190,7 +337,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchForm = document.querySelector(".search-box");
   const gridContainer = document.getElementById("productGrid");
 
-  // Rola suavemente até o catálogo de produtos (usado apenas ao clicar em lupa/enter/filtros)
   function scrollToCatalog() {
     if (gridContainer) {
       gridContainer.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -506,17 +652,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const filtered = PRODUCTS_DB.filter((p) => {
         const titleMatch = p.title.toLowerCase().includes(termo);
         const descMatch = p.desc.toLowerCase().includes(termo);
-
-        // Separa as tags/categorias em um array para busca precisa por subcategorias
         const categoriesArray = p.category.toLowerCase().split(/\s+/);
         let categoryMatch = false;
 
         if (termo === "pc") {
-          // Garante que "pc" traga PCs e Notebooks reais, ignorando a string "plataforma-pc" dos jogos
           categoryMatch =
             categoriesArray.includes("pc") && !categoriesArray.includes("jogo");
         } else {
-          // Verifica se alguma subcategoria/tag bate exatamente com o termo buscado
           categoryMatch = categoriesArray.some((cat) => cat.includes(termo));
         }
 
@@ -526,12 +668,10 @@ document.addEventListener("DOMContentLoaded", () => {
       renderProducts(filtered);
     }
 
-    // Ao digitar: Filtra instantaneamente SEM rolar a página
     searchInput.addEventListener("input", () => {
       executeSearchOnly();
     });
 
-    // Ao submeter (clicar na Lupa ou apertar Enter): Filtra E rola suavemente até os produtos
     if (searchForm) {
       searchForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -559,6 +699,37 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollToCatalog();
     });
   });
+
+  // ------------------------------------------------
+  // 7. CARROSSEL DE COLECIONADORES (INTEGRAÇÃO SPA)
+  // ------------------------------------------------
+  const carouselItems = document.querySelectorAll(
+    "#carouselColecionadores .carousel-item",
+  );
+  const colecionadoresIds = [15, 16, 17];
+
+  if (carouselItems.length > 0) {
+    carouselItems.forEach((item, index) => {
+      item.style.cursor = "pointer";
+      item.addEventListener("click", (e) => {
+        if (
+          e.target.closest(".carousel-control-prev") ||
+          e.target.closest(".carousel-control-next") ||
+          e.target.closest(".carousel-indicators")
+        ) {
+          return;
+        }
+
+        const productId = colecionadoresIds[index];
+        const product = PRODUCTS_DB.find((p) => p.id === productId);
+
+        if (product) {
+          localStorage.setItem(CURRENT_PRODUCT_KEY, JSON.stringify(product));
+          window.location.href = "produto.html";
+        }
+      });
+    });
+  }
 
   // ------------------------------------------------
   // INICIALIZAÇÃO GERAL
