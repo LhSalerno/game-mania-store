@@ -177,6 +177,9 @@ const PRODUCTS_DB = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Garante que a página sempre comece estritamente no topo ao carregar ou atualizar
+  window.scrollTo(0, 0);
+
   const CART_STORAGE_KEY = "gamemania_cart";
   const CURRENT_PRODUCT_KEY = "gamemania_selected_product";
 
@@ -187,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchForm = document.querySelector(".search-box");
   const gridContainer = document.getElementById("productGrid");
 
-  // Rola suavemente até o catálogo de produtos
+  // Rola suavemente até o catálogo de produtos (usado apenas ao clicar em lupa/enter/filtros)
   function scrollToCatalog() {
     if (gridContainer) {
       gridContainer.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -340,7 +343,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemTotal = item.price * item.quantity;
       grandTotal += itemTotal;
 
-      // Formatação padrão PT-BR para moeda (R$ X.XXX,XX)
       const unitPriceFormatted = item.price.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
@@ -490,18 +492,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ------------------------------------------------
-  // ------------------------------------------------
   // 5. BUSCA INTELIGENTE E AÇÃO DA LUPA / ENTER
   // ------------------------------------------------
   if (searchInput) {
-    // Função que apenas filtra os produtos na tela (sem rolar)
     function executeSearchOnly() {
       const termo = searchInput.value.toLowerCase().trim();
 
+      if (!termo) {
+        renderProducts(PRODUCTS_DB);
+        return;
+      }
+
       const filtered = PRODUCTS_DB.filter((p) => {
         const titleMatch = p.title.toLowerCase().includes(termo);
-        const categoryMatch = p.category.toLowerCase().includes(termo);
         const descMatch = p.desc.toLowerCase().includes(termo);
+
+        // Separa as tags/categorias em um array para busca precisa por subcategorias
+        const categoriesArray = p.category.toLowerCase().split(/\s+/);
+        let categoryMatch = false;
+
+        if (termo === "pc") {
+          // Garante que "pc" traga PCs e Notebooks reais, ignorando a string "plataforma-pc" dos jogos
+          categoryMatch =
+            categoriesArray.includes("pc") && !categoriesArray.includes("jogo");
+        } else {
+          // Verifica se alguma subcategoria/tag bate exatamente com o termo buscado
+          categoryMatch = categoriesArray.some((cat) => cat.includes(termo));
+        }
+
         return titleMatch || categoryMatch || descMatch;
       });
 
@@ -532,9 +550,10 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const filtro = link.getAttribute("data-filter").toLowerCase().trim();
 
-      const filtered = PRODUCTS_DB.filter((p) =>
-        p.category.toLowerCase().includes(filtro),
-      );
+      const filtered = PRODUCTS_DB.filter((p) => {
+        const categoriesArray = p.category.toLowerCase().split(/\s+/);
+        return categoriesArray.some((cat) => cat.includes(filtro));
+      });
 
       renderProducts(filtered);
       scrollToCatalog();
