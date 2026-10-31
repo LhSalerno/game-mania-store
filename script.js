@@ -54,7 +54,7 @@ const PRODUCTS_DB = [
     title: "God of War Ragnarök",
     price: 299.9,
     priceFormatted: "R$ 299,90",
-    image: "https://m.media-amazon.com/images/I/81I3Rk9x91L._AC_SX385_.jpg",
+    image: "Img.resu/godofwar.jpg",
     category: "jogo lancamentos ps5 ps4 acao aventura kratos",
     desc: "Embarque numa jornada épica e emocionante com Kratos e Atreus enquanto lutam entre o apego e a libertação nos Nove Reinos.",
     specs:
@@ -186,7 +186,7 @@ const PRODUCTS_DB = [
     title: "Notebook Ultrabook Lenovo Slim 5",
     price: 4199.0,
     priceFormatted: "R$ 4.199,00",
-    image: "Img.resu/not1.jpg",
+    image: "Img.resu/notebook.jpg",
     category: "notebook hardware ofertas",
     desc: "Leve, potente e elegante. Desenvolvido para produtividade exigente, estudos avançados e mobilidade diária.",
     specs: "Tela 15.6 polegadas Full HD IPS | Ryzen 7 | 16GB RAM",
