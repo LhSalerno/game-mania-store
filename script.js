@@ -2,7 +2,7 @@
 // GAME MANIA - SCRIPT PRINCIPAL E ARQUITETURA SPA
 // ================================================
 
-// BANCO DE DADOS CENTRALIZADO DE PRODUTOS (EXPANDIDO - ETAPA 1)
+// BANCO DE DADOS CENTRALIZADO DE PRODUTOS
 const PRODUCTS_DB = [
   // --- JOGOS & LANÇAMENTOS ---
   {
@@ -323,8 +323,13 @@ const PRODUCTS_DB = [
   },
 ];
 
+// Impede que o navegador restaure automaticamente a posição do scroll ao atualizar a página
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Garante que a página sempre comece estritamente no topo ao carregar ou atualizar
+  // Força a janela a ir para o topo no exato momento da inicialização
   window.scrollTo(0, 0);
 
   const CART_STORAGE_KEY = "gamemania_cart";
